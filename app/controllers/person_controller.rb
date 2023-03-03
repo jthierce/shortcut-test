@@ -1,8 +1,11 @@
 class PersonController < ApplicationController
     def import
         file = params[:file]
-        # add some errors in the view mode if the file is not csv or valid
+        #return redirect_to person_path, notice: 'Only CSV please' unless file.content_type == 'text/csv'
         Person.import(file)
         # add notice when the import is suceed.
+    rescue => e
+        #return redirect_to person_path, notice: 'A error has occured'
+        raise e
     end
 end
