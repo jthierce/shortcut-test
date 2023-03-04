@@ -15,7 +15,7 @@ RSpec.describe BasicImport, type: :model do
     end
 
     it 'update standart attribute' do
-      expect(Building::HIGH_LEVEL_ATTRIBUTES).to include(:manager_name)
+      expect(Building::HIGH_LEVEL_ATTRIBUTES).not_to include(:zip_code)
       expect(Building.first.zip_code).to eq('75009')
       Building.import(File.open("#{fixture_path}/building/building_1row.csv"))
       expect(Building.first.zip_code).to eq('75002')
