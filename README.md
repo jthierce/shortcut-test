@@ -10,7 +10,7 @@ When a slot is empty i consider this like missed data and don't update.
 
 Csv example is find on spec/fixture/csv
 
-All test was made with rspec
+You can find script for create a big csv file in the folder script.
 
 * Setup
 
