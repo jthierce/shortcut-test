@@ -21,6 +21,14 @@ RSpec.describe BasicImport, type: :model do
       expect(Building.first.zip_code).to eq('75002')
     end
 
+    it 'don\'t replace by nil if data is missing' do
+      expect(Building.first.city).to eq('Paris')
+      expect {
+        Building.import(File.open("#{fixture_path}/building/empty_case_building.csv"))
+      }.to change { Building.first.zip_code }.from('75009').to('75002')
+      expect(Building.first.city).to eq('Paris')
+    end
+
     context 'when we change high level attribute' do
       it 'the high level attribute already have value' do
         expect(Building::HIGH_LEVEL_ATTRIBUTES).to include(:manager_name)
