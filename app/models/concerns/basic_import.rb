@@ -17,7 +17,8 @@ module BasicImport
 
     def self.can_update_high_level_attributes?(model, attribute)
       return true unless self::HIGH_LEVEL_ATTRIBUTES.include?(attribute)
-      return false unless model.attributes.blank?
+      return true if model[attribute].blank?
+      return false
     end
   end
 end
