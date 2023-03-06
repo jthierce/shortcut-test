@@ -2,7 +2,7 @@
 
 * Some notes
 
-Keep sqlite for this little project.
+Use postgresql.
 
 Using rspec for test.
 

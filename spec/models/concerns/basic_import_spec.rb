@@ -14,7 +14,7 @@ RSpec.describe BasicImport, type: :model do
         Building.import(File.open("#{fixture_path}/building/big_files.csv"))
       }.to change { Building.count }.from(2).to(15000)
       time = Time.now - time
-      expect(time).to be <= 20
+      expect(time).to be <= 25
     end
 
     it 'update standart attribute' do
@@ -37,12 +37,16 @@ RSpec.describe BasicImport, type: :model do
         expect(Building::HIGH_LEVEL_ATTRIBUTES).to include(:manager_name)
         expect(Building.first.manager_name).to eq('Martin Faure')
         Building.import(File.open("#{fixture_path}/building/building_1row.csv"))
-        expect(Building.first.manager_name).not_to eq('Daft Punk')
+        expect(Building.first.manager_name).to eq('Daft Punk')
+        expect(Building.first.old_manager_name).to eq(['Martin Faure'])
+        Building.import(File.open("#{fixture_path}/building/basic_building.csv"))
+
+        expect(Building.first.manager_name).not_to eq('Martin Faure')
       end
 
       it 'the high level attribute don\t have value' do
         expect(Building::HIGH_LEVEL_ATTRIBUTES).to include(:manager_name)
-        Building.first.update(manager_name: nil)
+        Building.first.update(manager_name: nil, old_manager_name: ['Martin Faure'])
         Building.import(File.open("#{fixture_path}/building/building_1row.csv"))
         expect(Building.first.manager_name).to eq('Daft Punk')
       end

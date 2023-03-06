@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_04_165559) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_180852) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "buildings", force: :cascade do |t|
     t.string "reference"
     t.string "address"
@@ -20,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_165559) do
     t.string "manager_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "old_manager_name", default: [], array: true
     t.index ["reference"], name: "index_buildings_on_reference"
   end
 
@@ -33,6 +37,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_165559) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "old_email", default: [], array: true
+    t.text "old_mobile_phone_number", default: [], array: true
+    t.text "old_home_phone_number", default: [], array: true
+    t.text "old_address", default: [], array: true
     t.index ["reference"], name: "index_people_on_reference"
   end
 
