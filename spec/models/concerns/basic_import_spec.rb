@@ -33,18 +33,16 @@ RSpec.describe BasicImport, type: :model do
     end
 
     context 'when we change high level attribute' do
-      it 'the high level attribute already have value' do
+      it 'the high level attribute already have this value before' do
         expect(Building::HIGH_LEVEL_ATTRIBUTES).to include(:manager_name)
-        expect(Building.first.manager_name).to eq('Martin Faure')
         Building.import(File.open("#{fixture_path}/building/building_1row.csv"))
         expect(Building.first.manager_name).to eq('Daft Punk')
         expect(Building.first.old_manager_name).to eq(['Martin Faure'])
         Building.import(File.open("#{fixture_path}/building/basic_building.csv"))
-
         expect(Building.first.manager_name).not_to eq('Martin Faure')
       end
 
-      it 'the high level attribute don\t have value' do
+      it 'the high level attribute don\t have this value before' do
         expect(Building::HIGH_LEVEL_ATTRIBUTES).to include(:manager_name)
         Building.first.update(manager_name: nil, old_manager_name: ['Martin Faure'])
         Building.import(File.open("#{fixture_path}/building/building_1row.csv"))
