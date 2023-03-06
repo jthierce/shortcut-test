@@ -28,7 +28,7 @@ module BasicImport
     end
 
     def self.change_value(model, attribute, value)
-      model.send("old_#{attribute}") << model[attribute] if self::HIGH_LEVEL_ATTRIBUTES.include?(attribute)
+      model.send("old_#{attribute}") << model[attribute] if !model[attribute].nil? && self::HIGH_LEVEL_ATTRIBUTES.include?(attribute)
       model[attribute] = value
     end
   end

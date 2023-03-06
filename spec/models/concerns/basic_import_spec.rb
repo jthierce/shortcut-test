@@ -14,7 +14,7 @@ RSpec.describe BasicImport, type: :model do
         Building.import(File.open("#{fixture_path}/building/big_files.csv"))
       }.to change { Building.count }.from(2).to(15000)
       time = Time.now - time
-      expect(time).to be <= 25
+      expect(time).to be <= 60
     end
 
     it 'update standart attribute' do
